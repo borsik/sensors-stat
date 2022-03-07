@@ -5,7 +5,7 @@ object Main extends App {
   val path = args.head
   val files = new File(path).listFiles().filter(_.getName.endsWith(".csv"))
   val sensorsData = LazyList(files:_*).flatMap { file =>
-    CSVReader.open(file).toStream.map { line =>
+    CSVReader.open(file).toStream.drop(1).map { line =>
       SensorData(line(0), line(1).toIntOption)
     }
   }
